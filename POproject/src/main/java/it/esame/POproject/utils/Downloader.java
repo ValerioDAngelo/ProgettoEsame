@@ -4,14 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.net.URLConnection; //errore di mancata connessione?
 import java.util.ArrayList;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -20,17 +15,31 @@ import org.json.simple.parser.ParseException;
 import it.esame.POproject.data.Tweet;
 
 
+/** Classe che effettua il download dei tweets (tramite il metodo DownloadToFile), 
+ *  partendo dall'url, e poi va a serializzare il JSONArray in un ArrayList.
+ *
+ */
+
+
 
 public class Downloader {
 	
 	
 
 
-public JSONObject DownloadToFile () {
+public JSONArray DownloadToFile () {
 
 	
-String url = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1/search/tweets.json?q=farenz&count=100"; 
+/** Metodo che effettua il download dei tweets e li inserisce in un JSONArray
+ * 
+ * @param una url di tipo <code>String</code>
+ * @return un oggetto di tipo <code>JSONArray</code>
+ * 	
+ */
 	
+String url = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/user/1.1/statuses/user_timeline.json?count=1000"; 
+
+
 	try {
 		
 		URLConnection openConnection = new URL(url).openConnection();
@@ -50,9 +59,10 @@ String url = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1
 		 }
 		
 		 
-		JSONObject obj = (JSONObject) JSONValue.parseWithException(data);
+		 JSONArray jsonarr = (JSONArray) JSONValue.parseWithException(data);
 		
-		return obj;
+
+		return jsonarr;
 	
 		
 	} catch (IOException | ParseException e) {
@@ -70,41 +80,49 @@ String url = "https://wd4hfxnxxa.execute-api.us-east-2.amazonaws.com/dev/api/1.1
 
 
 
-public void Serializzazione (JSONObject obj, int counter) {
+public void Serializzazione (JSONArray jsonarray, int counter) {
 
 	
-JSONArray obj2 = (JSONArray) (obj.get("statuses"));
-ArrayList <Tweet> tweets = new ArrayList <Tweet>(100); 
+/** Metodo che effettua il parsing dei soli tweets con ingaggio in un Arraylist apposito.
+* 
+* @param un oggetto di tipo <code>JSONArray</code> e un oggetto di tipo <code>String</code>
+* @return un Arraylist di oggetti di tipo <code>Tweet</code>
+* 	
+*/	
+	
+	ArrayList <Tweet> tweets = new ArrayList <Tweet>(1000); 
 
 
-for(int i=0; i<100; i++) {
-	Tweet x = new Tweet();
-	tweets.add(x);
+	for(Object var : jsonarray) {
+	
+	
+		if ( var instanceof JSONObject) {
+		
+		
+		JSONObject obj4 = (JSONObject) var;
+	
+		Tweet y = new Tweet();
+
+		SingolaSerializzazione (obj4, y);
+	
+		if (y.retweet_count != 0 || y.favorite_count != 0) {
+	
+			tweets.add(y);	
+		
+			counter++;	
+			
+				}	
+	
+		
+			} 
+
+	}	
+	
+	
+Service.setArray (tweets);	
+	
+	
 }
-
-//System.out.println(tweets.size());
-
-    
-
-for(Object var : obj2) {
-	
-	
-	if ( var instanceof JSONObject) {
-		
-	JSONObject obj4 = (JSONObject) var;
-	SingolaSerializzazione (obj4, tweets.get(counter));
-	//System.out.println(tweets.get(counter).created_at);
-	counter++;
-	} 
-		
-    	
-}	
-	
-	
-	
-	
-	
-  }
 
 
 
@@ -115,10 +133,20 @@ for(Object var : obj2) {
 
 public void SingolaSerializzazione (JSONObject var, Tweet t) {
 
-t.created_at = (String) (var.get("created_at"));
-//System.out.println(t.created_at);
-}
+	
+/** Metodo che effettua il parsing del singolo tweet con ingaggio
+* 
+* @param un oggetto di tipo <code>JSONObject</code> e un oggetto di tipo <code>Tweet</code>
+* 	
+*/
+	
+	t.created_at = (String) (var.get("created_at"));
+	t.text = (String) (var.get("text"));
+	t.retweeted = (Boolean) (var.get("retweeted"));
+	t.retweet_count = (Long) (var.get("retweet_count"));
+	t.favorite_count = (Long) (var.get("favorite_count"));
 
+}
 
 
 
