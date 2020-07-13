@@ -141,10 +141,18 @@ if (day[0].equals("Sat")) counter_week[5]++ ;
 if (day[0].equals("Sun")) counter_week[6]++ ;		
 }
 
-//ciclo for che trova il minimo del vettore e lo ritorna come valore
-//if min = counter_week[0] return "Mon"
-//else if min = counter_week[1] return "Tue"
-//else if....
+int min = counter_week[0];
+
+for (int i = 1; i<7; i++) if (counter_week[i]<min)  min = counter_week[i];
+	
+
+if (min == counter_week[0]) return "Mon";
+else if (min == counter_week[1]) return "Tue";
+else if (min == counter_week[2]) return "Wed";
+else if (min == counter_week[3]) return "Thu";
+else if (min == counter_week[4]) return "Fri";
+else if (min == counter_week[5]) return "Sat";
+else if (min == counter_week[6]) return "Sun";
 
 
 return null;	
