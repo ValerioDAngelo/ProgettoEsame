@@ -16,19 +16,11 @@ public class Service {
 static ArrayList<Tweet> array;
 	
 
-	
-public static ArrayList<Tweet> getArray() {
-		return array;
-	}
 
 
 
-public static void setArray (ArrayList<Tweet> array) {
-		Service.array = array;
-	}
-
-	
 public static TimeStats getTimeStats () { //devo fare le statistiche sia per i retweet che per i like
+	
 	
 ArrayList<Tweet> Statsarray = new ArrayList<Tweet> ();
 Statsarray = Service.array;
@@ -49,6 +41,7 @@ timeStats.timesAM_str.add(time1[3]);
 timeStats.retweet_count_AM = t.retweet_count;
 }
 else {
+	
 timeStats.timesPM_str.add(time1[3]);
 timeStats.retweet_count_PM = t.retweet_count;
 }
@@ -103,6 +96,18 @@ dayStats.CalcDayStats (Statsarray2, day_array, Statsarray_1w, Statsarray_2w, Sta
 
 return dayStats;	
 	
-}	
+}
+
+
+public static ArrayList<Tweet> getArray() {
+	return array;
+}
+
+
+
+public static void setArray (ArrayList<Tweet> array) {
+	Service.array = array;
+}
+
 
 }

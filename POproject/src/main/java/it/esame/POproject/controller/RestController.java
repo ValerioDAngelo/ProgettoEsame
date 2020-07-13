@@ -3,6 +3,8 @@ package it.esame.POproject.controller;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestMapping; //vedere eventuali eccezioni
 import it.esame.POproject.utils.Service;
+import it.esame.POproject.utils.test;
+import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
 import it.esame.POproject.statistics.DayStats;
 import it.esame.POproject.statistics.TimeStats;
@@ -81,6 +83,16 @@ DayStats daystats = Service.getDayStats();
 }
 
 
+
+@RequestMapping (value = "/timeStats") 
+
+public CompleteStats gettimeStats() {
+	
+CompleteStats timestats = test.getTimeStats();	
+	
+	return (CompleteStats) timestats;
+	
+}
 
 
 }
