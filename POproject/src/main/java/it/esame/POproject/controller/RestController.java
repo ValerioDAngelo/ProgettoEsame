@@ -8,6 +8,7 @@ import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
 import it.esame.POproject.statistics.DayStats;
 import it.esame.POproject.statistics.TimeStats;
+import it.esame.POproject.statistics.day_stats;
 
 
 @org.springframework.web.bind.annotation.RestController
@@ -91,6 +92,17 @@ public CompleteStats gettimeStats() {
 CompleteStats timestats = test.getTimeStats();	
 	
 	return (CompleteStats) timestats;
+	
+}
+
+
+@RequestMapping (value = "/dayStats") 
+
+public day_stats getdayStats() {
+	
+day_stats daystats = test.getDayStats();	
+	
+	return (day_stats) daystats;
 	
 }
 

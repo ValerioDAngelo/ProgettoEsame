@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
 import it.esame.POproject.data.time_stats;
-import it.esame.POproject.statistics.DayStats;
+import it.esame.POproject.statistics.day_stats;
 
 import java.util.regex.Pattern;
 
@@ -29,6 +29,8 @@ public class test {
 			test.array = array;
 		}
 
+	
+	
 		
 	public static CompleteStats getTimeStats () { 
 		
@@ -77,43 +79,45 @@ public class test {
 	}	
 
 
+	
+	
+	
+	
 
 
-	public static DayStats getDayStats () {
+    public static day_stats getDayStats () {
 		
-	ArrayList<Tweet> Statsarray = new ArrayList<Tweet> ();
-	ArrayList<Tweet> Statsarray2 = new ArrayList<Tweet> ();
-	ArrayList<String> day_array = new ArrayList<String> ();
+	ArrayList<Tweet> array = new ArrayList<Tweet> ();
 	ArrayList<Tweet> Statsarray_1w = new ArrayList<Tweet> ();
 	ArrayList<Tweet> Statsarray_2w = new ArrayList<Tweet> ();
 	ArrayList<Tweet> Statsarray_3w = new ArrayList<Tweet> ();
 	ArrayList<Tweet> Statsarray_4w = new ArrayList<Tweet> ();
-	Statsarray = Service.array;
+	array = test.array;
 	String[] day1 = null;
 	int number_month;
-	DayStats dayStats = new DayStats ();
+	day_stats dayStats = new day_stats ();
 
 
-	for(Tweet t : Statsarray) {
+	for(Tweet t : array) {
 
 	Pattern pattern = Pattern.compile("\\s");
 	day1 = pattern.split(t.created_at);
 	number_month = Integer.parseInt(day1[2]);
+	
+	
 	if (day1[1].equals("Jun")) {
 
-	Statsarray2.add(t);
-	day_array.add(day1[0]);
-
-	if (number_month <= 7) Statsarray_1w.add(t);
-	if (number_month > 7 && number_month <= 14) Statsarray_2w.add(t);
-	if (number_month > 14 && number_month <= 21) Statsarray_3w.add(t);
-	if (number_month > 21 && number_month <= 28) Statsarray_4w.add(t);
+	
+	if (number_month <= 7)  Statsarray_1w.add(t);
+	if (number_month > 7 && number_month <= 14)  Statsarray_2w.add(t);
+	if (number_month > 14 && number_month <= 21)  Statsarray_3w.add(t); 
+	if (number_month > 21 && number_month <= 28)  Statsarray_4w.add(t);
 
 	}
 
 	}
 
-	dayStats.CalcDayStats (Statsarray2, day_array, Statsarray_1w, Statsarray_2w, Statsarray_3w, Statsarray_4w );
+	day_stats.CalcDayStats (Statsarray_1w, Statsarray_2w, Statsarray_3w, Statsarray_4w);
 
 
 	return dayStats;	
