@@ -2,16 +2,15 @@ package it.esame.POproject.controller;
 
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestMapping; //vedere eventuali eccezioni
-import it.esame.POproject.utils.Service;
 import it.esame.POproject.utils.test;
 import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
-import it.esame.POproject.statistics.DayStats;
-import it.esame.POproject.statistics.TimeStats;
 import it.esame.POproject.statistics.day_stats;
 
 
 @org.springframework.web.bind.annotation.RestController
+
+
 
 
 /** Controller dell'applicazione che permette le chiamate GET, 
@@ -21,8 +20,9 @@ import it.esame.POproject.statistics.day_stats;
 
 
 
-
 public class RestController {
+
+	
 	
 /**
  * restituisce sulla rotta "/Data" l'array di tweets.	
@@ -33,56 +33,31 @@ public class RestController {
 
 public ArrayList<Tweet> getData() {
 	
-	return (ArrayList<Tweet>) Service.getArray();
+	return (ArrayList<Tweet>) test.getArray();
 	
 }
 
 
+/**
+ * restituisce sulla rotta "/MetaData" l'array di metadata relativi ai parametri dei tweets.	
+ * @return un Arraylist di <code>Metadata</code>
+ */
 
 @RequestMapping (value = "/MetaData") 
 
 public ArrayList<Tweet> getMetaData() {
 	
-	return (ArrayList<Tweet>) Service.getArray();
+	return (ArrayList<Tweet>) test.getArray();
 	
 }
+
 
 
 /**
- * restituisce sulla rotta "/TimeStats" le statistiche (min, max, avg, devst)
- * relative alle fasce orarie dei tweets.	
- * @return un oggetto di tipo <code>Stats</code>
+ * restituisce sulla rotta "/timeStats" le statistiche (min, max, avg, devst)
+ * relative alle fasce orarie (AM, PM) dei tweets.	
+ * @return un oggetto di tipo <code>CompleteStats</code>
  */
-
-
-@RequestMapping (value = "/TimeStats") //devo fare double per la media, non int
-
-public TimeStats getTimeStats() {
-	
-TimeStats timestats = Service.getTimeStats();	
-	
-	return (TimeStats) timestats;
-	
-}
-
-
-/**
- * restituisce sulla rotta "/DayStats" le statistiche (min, max, avg, devst)
- * relative ai giorni della settimana nel periodo di Giugno 2020.	
- * @return un oggetto di tipo <code>Stats</code>
- */
-
-
-@RequestMapping (value = "/DayStats") //eccezione rotta scritta male? su postman esce un errore
-
-public DayStats getDayStats() {
-
-DayStats daystats = Service.getDayStats();
-
-	return (DayStats) daystats;
-	
-}
-
 
 
 @RequestMapping (value = "/timeStats") 
@@ -96,7 +71,15 @@ CompleteStats timestats = test.getTimeStats();
 }
 
 
-@RequestMapping (value = "/dayStats") 
+
+/**
+ * restituisce sulla rotta "/dayStats" le statistiche (min, max)
+ * relative ai giorni della settimana nel periodo di Giugno 2020.	
+ * @return un oggetto di tipo <code>day_stats</code>
+ */
+
+
+@RequestMapping (value = "/dayStats") //eccezione rotta scritta male? su postman esce un errore
 
 public day_stats getdayStats() {
 	

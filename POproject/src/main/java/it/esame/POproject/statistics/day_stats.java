@@ -9,14 +9,14 @@ import java.util.regex.Pattern;
 public class day_stats {
 
 
-	public static String min_day_w1;
-	public static String max_day_w1;
-	public static String min_day_w2;
-	public static String max_day_w2;
-	public static String min_day_w3;
-	public static String max_day_w3;
-	public static String min_day_w4;
-	public static String max_day_w4;
+public static String min_day_w1;
+public static String max_day_w1;
+public static String min_day_w2;
+public static String max_day_w2;
+public static String min_day_w3;
+public static String max_day_w3;
+public static String min_day_w4;
+public static String max_day_w4;
 
 
 
