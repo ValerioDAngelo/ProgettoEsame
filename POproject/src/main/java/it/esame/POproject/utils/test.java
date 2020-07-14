@@ -112,36 +112,11 @@ public class test {
     public static day_stats getDayStats () {
 		
 	ArrayList<Tweet> array = new ArrayList<Tweet> ();
-	ArrayList<Tweet> Statsarray_1w = new ArrayList<Tweet> ();
-	ArrayList<Tweet> Statsarray_2w = new ArrayList<Tweet> ();
-	ArrayList<Tweet> Statsarray_3w = new ArrayList<Tweet> ();
-	ArrayList<Tweet> Statsarray_4w = new ArrayList<Tweet> ();
 	array = test.array;
-	String[] day1 = null;
-	int number_month;
 	day_stats dayStats = new day_stats ();
 
-
-	for(Tweet t : array) {
-
-	Pattern pattern = Pattern.compile("\\s");
-	day1 = pattern.split(t.created_at);
-	number_month = Integer.parseInt(day1[2]);
 	
-	
-	if (day1[1].equals("Jun")) {
-
-	
-	if (number_month <= 7)  Statsarray_1w.add(t);
-	if (number_month > 7 && number_month <= 14)  Statsarray_2w.add(t);
-	if (number_month > 14 && number_month <= 21)  Statsarray_3w.add(t); 
-	if (number_month > 21 && number_month <= 28)  Statsarray_4w.add(t);
-
-	}
-
-	}
-
-	day_stats.CalcDayStats (Statsarray_1w, Statsarray_2w, Statsarray_3w, Statsarray_4w);
+	dayStats.CalcdayStats (array);
 
 
 	return dayStats;	

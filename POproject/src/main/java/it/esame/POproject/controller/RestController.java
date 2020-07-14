@@ -80,7 +80,6 @@ CompleteStats timestats = test.getTimeStats();
  * @return un oggetto di tipo <code>day_stats</code>
  */
 
-//?numberoftweets = 5
 
 @RequestMapping (value = "/dayStats") //eccezione rotta scritta male? su postman esce un errore
 

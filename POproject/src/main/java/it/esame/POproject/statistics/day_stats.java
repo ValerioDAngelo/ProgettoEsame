@@ -8,47 +8,25 @@ import java.util.regex.Pattern;
 
 public class day_stats {
 
-
-public static String min_day_w1;
-public static String max_day_w1;
-public static String min_day_w2;
-public static String max_day_w2;
-public static String min_day_w3;
-public static String max_day_w3;
-public static String min_day_w4;
-public static String max_day_w4;
+public String min;
+public String max;
+public double avg;
+public double devst;
 
 
-
-
-
-
-	public static void CalcDayStats (ArrayList<Tweet> Statsarray_1w, ArrayList<Tweet> Statsarray_2w, ArrayList<Tweet> Statsarray_3w, ArrayList<Tweet> Statsarray_4w) {
-
-		day_stats.min_day_w1 = CalcMinDay(Statsarray_1w);	
-		day_stats.max_day_w1 = CalcMaxDay(Statsarray_1w);	
-			
 		
-		day_stats.min_day_w2 = CalcMinDay(Statsarray_2w);	
-		day_stats.max_day_w2 = CalcMaxDay(Statsarray_2w);	
-			
-		
-		day_stats.min_day_w3 = CalcMinDay(Statsarray_3w);	
-		day_stats.max_day_w3 = CalcMaxDay(Statsarray_3w);	
-			
-		
-		day_stats.min_day_w4 = CalcMinDay(Statsarray_4w);	
-		day_stats.max_day_w4 = CalcMaxDay(Statsarray_4w);	
-			
-		
+
+	public void CalcdayStats (ArrayList<Tweet> Statsarray) {	
+	
+		this.min = CalcMinDay(Statsarray);
+		this.max = CalcMaxDay(Statsarray);
+		this.avg = CalcAvg(Statsarray);
+		this.devst = CalcDevst(Statsarray);
 		
 	}
 		
-
-	
 		
-		
-	public static String CalcMinDay (ArrayList<Tweet> Statsarray_w) {
+	public String CalcMinDay (ArrayList<Tweet> Statsarray) {
 		
 
 	int [] counter_week = new int[7];
@@ -57,7 +35,7 @@ public static String max_day_w4;
 
 	String [] day = null;
 
-	for(Tweet t : Statsarray_w) {
+	for(Tweet t : Statsarray) {
 
 	Pattern pattern = Pattern.compile("\\s");
 	day = pattern.split(t.created_at);
@@ -90,7 +68,7 @@ public static String max_day_w4;
 	}
 
 
-	public static String CalcMaxDay (ArrayList<Tweet> Statsarray_w)	{
+	public String CalcMaxDay (ArrayList<Tweet> Statsarray)	{
 		
 		int [] counter_week = new int[7];
 		
@@ -98,7 +76,7 @@ public static String max_day_w4;
 
 		String [] day = null;
 
-		for(Tweet t : Statsarray_w) {
+		for(Tweet t : Statsarray) {
 
 		Pattern pattern = Pattern.compile("\\s");
 		day = pattern.split(t.created_at);
@@ -114,7 +92,7 @@ public static String max_day_w4;
 
 		int max = counter_week[0];
 
-		for (int i = 1; i<7; i++) if (counter_week[i]<max)  max = counter_week[i];
+		for (int i = 1; i<7; i++) if (counter_week[i]>max)  max = counter_week[i];
 			
 
 		if (max == counter_week[0]) return "Mon";
@@ -130,146 +108,68 @@ public static String max_day_w4;
 	}
 		
 
-
-
-
-
-
-	public String getMin_day_w1() {
-		return min_day_w1;
+	public double CalcAvg (ArrayList<Tweet> Statsarray) { //media di tweets al giorno
+		
+	double avg = 0;
+	double sum_tweets = 0;
+	double sum_days = 0;
+	String[] day1 = null;
+	int number_month;
+	int appoggio = 0;
+	
+	for(Tweet element : Statsarray)	{
+		
+		sum_tweets++;
+		Pattern pattern = Pattern.compile("\\s");
+		day1 = pattern.split(element.created_at);
+		number_month = Integer.parseInt(day1[2]);
+		if (number_month != appoggio) {
+			
+			sum_days++;
+			appoggio = number_month;
+		}
+	}
+	
+	avg = sum_tweets/sum_days;
+	
+	return avg;
+	}
+	
+	
+	public double CalcDevst (ArrayList<Tweet> Statsarray) { //devst di tweets al giorno
+		
+	double avg = CalcAvg(Statsarray);
+	double devst = 0;
+	String[] day1 = null;
+	String[] day2 = null;
+	double appoggio2 = 0;
+	double contatore_tweets = 0;
+	
+	Pattern pattern = Pattern.compile("\\s");
+	day1 = pattern.split(Statsarray.get(0).created_at);
+	int number_month = Integer.parseInt(day1[2]);
+	
+	
+	for(Tweet element : Statsarray)	{
+		
+		Pattern pattern2 = Pattern.compile("\\s");
+		day2 = pattern2.split(element.created_at);
+		int confronto = Integer.parseInt(day2[2]);
+		
+		if (number_month!=confronto) {
+			
+			appoggio2 = appoggio2 + Math.pow(contatore_tweets-avg, 2);
+			contatore_tweets = 1;
+			number_month = confronto;
+		} else contatore_tweets++;
+		
 	}
 
-
-
-
-
-	public void setMin_day_w1(String min_day_w1) {
-		day_stats.min_day_w1 = min_day_w1;
-	}
-
-
-
-
-
-	public String getMax_day_w1() {
-		return max_day_w1;
-	}
-
-
-
-
-
-	public void setMax_day_w1(String max_day_w1) {
-		day_stats.max_day_w1 = max_day_w1;
-	}
-
-
-
-
-
-
-	public String getMin_day_w2() {
-		return min_day_w2;
-	}
-
-
-
-
-
-	public void setMin_day_w2(String min_day_w2) {
-		day_stats.min_day_w2 = min_day_w2;
-	}
-
-
-
-
-
-	public String getMax_day_w2() {
-		return max_day_w2;
-	}
-
-
-
-
-
-	public void setMax_day_w2(String max_day_w2) {
-		day_stats.max_day_w2 = max_day_w2;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-	public String getMin_day_w3() {
-		return min_day_w3;
-	}
-
-
-
-
-
-	public void setMin_day_w3(String min_day_w3) {
-		day_stats.min_day_w3 = min_day_w3;
-	}
-
-
-
-
-
-	public String getMax_day_w3() {
-		return max_day_w3;
-	}
-
-
-
-
-
-	public void setMax_day_w3(String max_day_w3) {
-		day_stats.max_day_w3 = max_day_w3;
-	}
-
-
-
-
-
-
-
-
-	public String getMin_day_w4() {
-		return min_day_w4;
-	}
-
-
-
-
-
-	public void setMin_day_w4(String min_day_w4) {
-		day_stats.min_day_w4 = min_day_w4;
-	}
-
-
-
-
-
-	public String getMax_day_w4() {
-		return max_day_w4;
-	}
-
-
-
-
-
-	public void setMax_day_w4(String max_day_w4) {
-		day_stats.max_day_w4 = max_day_w4;
-	}
-
+	devst = Math.sqrt(appoggio2/Statsarray.size());
+	
+	return devst;
+	}	
+	
 
 	
 }
