@@ -6,7 +6,7 @@ import it.esame.POproject.utils.test;
 import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
 import it.esame.POproject.statistics.day_stats;
-
+import it.esame.POproject.data.Metadata;
 
 @org.springframework.web.bind.annotation.RestController
 
@@ -38,6 +38,7 @@ public ArrayList<Tweet> getData() {
 }
 
 
+
 /**
  * restituisce sulla rotta "/MetaData" l'array di metadata relativi ai parametri dei tweets.	
  * @return un Arraylist di <code>Metadata</code>
@@ -45,9 +46,10 @@ public ArrayList<Tweet> getData() {
 
 @RequestMapping (value = "/MetaData") 
 
-public ArrayList<Tweet> getMetaData() {
+public ArrayList<Metadata> getMetaData() {
+
 	
-	return (ArrayList<Tweet>) test.getArray();
+	return (ArrayList<Metadata>) test.getMetadata();
 	
 }
 
@@ -78,6 +80,7 @@ CompleteStats timestats = test.getTimeStats();
  * @return un oggetto di tipo <code>day_stats</code>
  */
 
+//?numberoftweets = 5
 
 @RequestMapping (value = "/dayStats") //eccezione rotta scritta male? su postman esce un errore
 

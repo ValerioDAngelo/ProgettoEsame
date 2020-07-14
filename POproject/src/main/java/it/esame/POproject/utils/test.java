@@ -2,11 +2,12 @@ package it.esame.POproject.utils;
 
 import java.util.ArrayList;
 
+import it.esame.POproject.data.Metadata;
 import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
 import it.esame.POproject.data.time_stats;
 import it.esame.POproject.statistics.day_stats;
-
+import java.lang.reflect.*;
 import java.util.regex.Pattern;
 
 
@@ -29,9 +30,32 @@ public class test {
 			test.array = array;
 		}
 
+
+
 	
 	
+	
+	public static ArrayList<Metadata> getMetadata ()	{
 		
+	ArrayList<Metadata> metadata = new ArrayList<Metadata> ();	
+	Class<?>  myClass = Tweet.class;
+	Field[] fields = myClass.getFields();
+	
+	for (Field field : fields) {
+		
+		Metadata metadata1 = new Metadata ();
+		metadata1.setField_name(field.getName());
+		metadata1.setField_type(field.getType().getSimpleName());
+		metadata.add(metadata1);
+		}
+
+	return metadata;
+	}
+	
+	
+
+	
+	
 	public static CompleteStats getTimeStats () { 
 		
 	ArrayList<Tweet> array = new ArrayList<Tweet> ();
