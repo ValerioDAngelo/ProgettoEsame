@@ -119,7 +119,7 @@ public void Serializzazione (JSONArray jsonarray, int counter) {
 	}	
 	
 	
-test.setArray (tweets);
+Service.setArray (tweets);
 	
 	
 }

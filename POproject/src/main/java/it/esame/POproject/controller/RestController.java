@@ -2,7 +2,7 @@ package it.esame.POproject.controller;
 
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestMapping; //vedere eventuali eccezioni
-import it.esame.POproject.utils.test;
+import it.esame.POproject.utils.Service;
 import it.esame.POproject.data.CompleteStats;
 import it.esame.POproject.data.Tweet;
 import it.esame.POproject.statistics.day_stats;
@@ -33,7 +33,7 @@ public class RestController {
 
 public ArrayList<Tweet> getData() {
 	
-	return (ArrayList<Tweet>) test.getArray();
+	return (ArrayList<Tweet>) Service.getArray();
 	
 }
 
@@ -49,7 +49,7 @@ public ArrayList<Tweet> getData() {
 public ArrayList<Metadata> getMetaData() {
 
 	
-	return (ArrayList<Metadata>) test.getMetadata();
+	return (ArrayList<Metadata>) Service.getMetadata();
 	
 }
 
@@ -66,7 +66,7 @@ public ArrayList<Metadata> getMetaData() {
 
 public CompleteStats gettimeStats() {
 	
-CompleteStats timestats = test.getTimeStats();	
+CompleteStats timestats = Service.getTimeStats();	
 	
 	return (CompleteStats) timestats;
 	
@@ -85,7 +85,7 @@ CompleteStats timestats = test.getTimeStats();
 
 public day_stats getdayStats() {
 	
-day_stats daystats = test.getDayStats();	
+day_stats daystats = Service.getDayStats();	
 	
 	return (day_stats) daystats;
 	
